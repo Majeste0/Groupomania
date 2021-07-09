@@ -1,22 +1,26 @@
-import "../styles/login.scss"
+import "../styles/Login.scss";
+import Banner from "./Banner";
 
 const Login = () => {
-
-    return( 
-    <form className="login_form">
-    <div className="login_input">
-    <label>
-      Nom d'utilisateur
-      <input type="text"/>
-    </label>
-    <label>
-    Mot de passe  
-    <input type="password"/>
-    </label>
+  return (
+    <div>
+      <Banner />
+      <h2>Connexion</h2>
+      <form className="login_form">
+        <div className="login_input">
+          <label>
+            <p>Nom d'utilisateur</p>
+            <input type="text" />
+          </label>
+          <label>
+            <p>Mot de passe</p>
+            <input type="password" />
+          </label>
+        </div>
+        <input type="submit" value="Se connecter !" className="login_submit" />
+      </form>
     </div>
-    <input type="submit" value="Connexion" className="login_submit" />
-  </form>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

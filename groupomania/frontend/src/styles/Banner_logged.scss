@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "Teko";
+  src: local("Teko"), url(../fonts/Teko-Medium.ttf);
+}
+
+.banner_username {
+  padding: 3px;
+  border: solid #e74c3c 2px;
+  text-transform: uppercase;
+  font-size: bold;
+  font-family: "Teko", sans-serif;
+  font-size: 30px;
+  text-decoration: none;
+}
