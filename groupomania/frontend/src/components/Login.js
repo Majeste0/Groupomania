@@ -5,7 +5,7 @@ const Login = () => {
   return (
     <div>
       <Banner />
-      <h2>Connexion</h2>
+      <h2 className="login_title">Connexion</h2>
       <form className="login_form">
         <div className="login_input">
           <label>

@@ -1,12 +1,21 @@
 import "../styles/Signup.scss";
 import Banner from "./Banner";
+import React, { useState } from "react";
 
 const Signup = () => {
+  const [afficher, setAfficher] = useState();
+
+  const _submit = (e) => {
+    fetch("", { type: "POST", body: new FormData(e.target) }).then((r) =>
+      r.json().then((rformatee) => setAfficher(rformatee))
+    );
+  };
+
   return (
     <div>
       <Banner />
-      <h2>Inscription</h2>
-      <form className="signup_form">
+      <h2 className="signup_title">Inscription</h2>
+      <form onSubmit={_submit} className="signup_form">
         <div className="signup_input">
           <label>
             <p> Nom d'utilisateur </p>

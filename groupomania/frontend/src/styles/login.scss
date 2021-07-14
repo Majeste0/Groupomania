@@ -7,21 +7,12 @@
   src: local("Dosis"), url(../fonts/Dosis-SemiBold.ttf);
 }
 
-h2 {
+.login_title {
   text-align: center;
   margin-top: 150px;
   font-family: Teko;
   font-size: 3em;
   margin-bottom: 20px;
-}
-p {
-  margin-top: 0;
-  margin-bottom: 5px;
-  font-family: "Dosis-extralight", sans-serif;
-  font-size: 30px;
-  color: white;
-  text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
-    0px 18px 23px rgba(0, 0, 0, 0.1);
 }
 
 .login_form {
@@ -56,6 +47,15 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  p {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-family: "Dosis-extralight", sans-serif;
+    font-size: 30px;
+    color: white;
+    text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
+      0px 18px 23px rgba(0, 0, 0, 0.1);
+  }
 }
 
 .login_submit {
