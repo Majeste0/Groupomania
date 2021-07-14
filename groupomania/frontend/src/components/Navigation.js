@@ -9,7 +9,7 @@ const Navigation = () => {
           <li className="grp-signup">Inscription</li>
         </Link>
         <Link to="/">
-          <li className="grp-login">Navigation</li>
+          <li className="grp-login">Connexion</li>
         </Link>
       </ul>
     </nav>

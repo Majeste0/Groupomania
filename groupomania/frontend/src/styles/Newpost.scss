@@ -1,0 +1,34 @@
+.newPost {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+  margin-top: 3%;
+}
+input {
+  padding: 10px;
+  margin-bottom: 50px;
+}
+.titre_txt,
+.message_txt {
+  text-align: left;
+  margin-left: 5px;
+  display: block;
+}
+.message {
+  padding-bottom: 200px;
+}
+
+h2 {
+  margin: 20px 0px 0px 0px;
+}
+
+.btn_newpostIN {
+  float: none;
+  margin: auto;
+  padding: 15px 25px 15px 25px;
+
+  display: flex;
+
+  cursor: pointer;
+}

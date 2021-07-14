@@ -1,7 +1,18 @@
-import { db } from "../connexion/database";
-const mysql = require("mysql");
+const db = require("../connexion/database");
 
-exports.signup = (req, res) => {};
+exports.signup = (req, res) => {
+  const { username, password } = req.body;
+  if (username && paswword) {
+    try {
+      db.promise().query(
+        `INSERT INTO USERS VALUES("${username}", "${password}")`
+      );
+      res.status(201).send({ msg: "Created User" });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+};
 
 /*
 const jwt = require("jsonwebtoken"); // Création de tokens unique pour sécuriser les connections
