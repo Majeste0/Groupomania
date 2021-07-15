@@ -1,11 +1,11 @@
-import Banner_logged from "./Banner_logged";
+import BannerLogged from "./BannerLogged";
 import NewArticleBtn from "./NewArticleBtn";
 import NewGifBtn from "./NewGifBtn";
 
 const MainPage = () => {
   return (
     <div>
-      <Banner_logged />
+      <BannerLogged />
       <NewArticleBtn />
       <NewGifBtn />
     </div>

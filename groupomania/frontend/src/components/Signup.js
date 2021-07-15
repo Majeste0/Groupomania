@@ -1,33 +1,39 @@
 import "../styles/Signup.scss";
 import Banner from "./Banner";
-import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const Signup = () => {
-  const [afficher, setAfficher] = useState();
+  const { register, handleSubmit } = useForm();
 
-  const _submit = (e) => {
-    fetch("", { type: "POST", body: new FormData(e.target) }).then((r) =>
-      r.json().then((rformatee) => setAfficher(rformatee))
-    );
+  const onSubmit = (data) => {
+    console.log(data);
   };
 
   return (
     <div>
       <Banner />
       <h2 className="signup_title">Inscription</h2>
-      <form onSubmit={_submit} className="signup_form">
+      <form onSubmit={handleSubmit(onSubmit)} className="signup_form">
         <div className="signup_input">
           <label>
             <p> Nom d'utilisateur </p>
-            <input type="text" />
+            <input type="text" {...register("username", { required: true })} />
           </label>
           <label>
             <p> Mot de passe </p>
-            <input type="password" />
+            <input
+              type="password"
+              autoComplete="off"
+              {...register("password", { required: true })}
+            />
           </label>
           <label>
             <p>Confirmez le mot de passe </p>
-            <input type="password" />
+            <input
+              type="password"
+              autoComplete="off"
+              {...register("password_conf", { required: true })}
+            />
           </label>
         </div>
         <input type="submit" value="Connexion" className="signup_submit" />

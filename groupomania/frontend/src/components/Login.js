@@ -14,7 +14,7 @@ const Login = () => {
           </label>
           <label>
             <p>Mot de passe</p>
-            <input type="password" />
+            <input type="password" autoComplete="off" />
           </label>
         </div>
         <input type="submit" value="Se connecter !" className="login_submit" />
