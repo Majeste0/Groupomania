@@ -6,7 +6,12 @@ const Signup = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    fetch("http://localhost:3000/api/auth/signup", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    });
+    // console.log(data);
   };
 
   return (
@@ -27,14 +32,14 @@ const Signup = () => {
               {...register("password", { required: true })}
             />
           </label>
-          <label>
+          {/* <label>
             <p>Confirmez le mot de passe </p>
             <input
               type="password"
               autoComplete="off"
               {...register("password_conf", { required: true })}
             />
-          </label>
+          </label> */}
         </div>
         <input type="submit" value="Connexion" className="signup_submit" />
       </form>
