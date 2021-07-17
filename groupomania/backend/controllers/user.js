@@ -5,6 +5,12 @@ const { cpuUsage } = require("process");
 
 const mysql = require("mysql");
 require("dotenv").config(); // Package nous permettant d'utiliser les variable d'environnement
+var connection = mysql.createConnection({
+  host: process.env.Database_HOST,
+  user: process.env.Database_USER,
+  password: process.env.Database_PASSWORD || "",
+  database: process.env.Database_NAME,
+});
 
 exports.signup = (req, res) => {
   console.log(req.body);
@@ -39,12 +45,7 @@ exports.signup = (req, res) => {
           username: clean.username,
           password: hash,
         };
-        var connection = mysql.createConnection({
-          host: process.env.Database_HOST,
-          user: process.env.Database_USER,
-          password: process.env.Database_PASSWORD || "",
-          database: process.env.Database_NAME,
-        });
+
         try {
           connection.query(
             `INSERT INTO USERS(username, password) VALUES("${user.username}", "${user.password}")`
@@ -56,4 +57,33 @@ exports.signup = (req, res) => {
       });
     }
   }
+};
+
+exports.login = (req, res, next) => {
+  var clean = sanitize(req.body); // Check si il y a des scripts envoyés
+  User.findOne({ email: clean.email }) // On recherche l'email de l'utilisateur dans mongoDB
+    .then((user) => {
+      if (!user) {
+        // Si l'on ne retrouve pas son mail dans mongoDB
+        return res.status(401).json({ error: "Utilisateur non trouvé !" });
+      }
+      bcrypt
+        .compare(clean.password, user.password) // Bcrypt compare le mot de passe tapé avec celui contenu dans la base de données
+        .then((valid) => {
+          if (!valid) {
+            // Si le mot de passe n'est pas bon
+            return res.status(401).json({ error: "Mot de passe incorrect !" });
+          }
+          res.status(200).json({
+            // Si le mot de passe est bon cela renvoi une ID + un Token
+            userId: user._id,
+            token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
+              // Génération d'un token qui sera valide 24H
+              expiresIn: "24h",
+            }),
+          });
+        })
+        .catch((error) => res.status(500).json({ error }));
+    })
+    .catch((error) => res.status(500).json({ error }));
 };

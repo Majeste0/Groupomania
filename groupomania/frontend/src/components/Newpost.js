@@ -1,5 +1,6 @@
 import BannerLogged from "./BannerLogged";
 import "../styles/Newpost.scss";
+import TinyyMCE from "./TinyMCE";
 
 const NewPost = () => {
   return (
@@ -7,16 +8,16 @@ const NewPost = () => {
       <BannerLogged />
       <h2 className="newpost_title">Nouveau post</h2>
       <form className="newPost">
-        <label for="name" className="titre_txt">
-          {" "}
-          Titre :{" "}
-        </label>
-        <input className="newpost_input" type="text" required />
+        <label for="name" className="titre_txt"></label>
+        <input
+          className="newpost_input"
+          type="text"
+          placeholder="Titre..."
+          required
+        />
         <label for="message" className="message_txt">
-          {" "}
-          Post :{" "}
+          <TinyyMCE />
         </label>
-        <input type="text" className="message" required />
       </form>
       <button className="btn_newpostIN">Envoyer !</button>
     </div>

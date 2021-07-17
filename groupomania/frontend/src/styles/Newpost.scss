@@ -3,7 +3,6 @@
   flex-direction: column;
   width: 70%;
   margin: auto;
-  margin-top: 3%;
 }
 .newpost_input {
   padding: 10px;
@@ -23,13 +22,18 @@
 
 .newpost_title {
   margin: 20px 0px 0px 0px;
+  text-align: center;
+  font-family: Teko;
+  font-size: 3em;
+  margin-bottom: 20px;
 }
 
 .btn_newpostIN {
   float: none;
   margin: auto;
   padding: 15px 25px 15px 25px;
-
+  margin-top: 20px;
+  margin-bottom: 20px;
   display: flex;
 
   cursor: pointer;
