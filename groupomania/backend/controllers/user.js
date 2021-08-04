@@ -1,19 +1,13 @@
 const db = require("../connection/database");
 var sanitize = require("mongo-sanitize"); // Permet d'éviter les envoi de scripts lors de la connection
 const bcrypt = require("bcrypt"); // Permet de hasher les données
-const { cpuUsage } = require("process");
-
+const connect = require("../connection/database.js");
 const mysql = require("mysql");
 require("dotenv").config(); // Package nous permettant d'utiliser les variable d'environnement
-var connection = mysql.createConnection({
-  host: process.env.Database_HOST,
-  user: process.env.Database_USER,
-  password: process.env.Database_PASSWORD || "",
-  database: process.env.Database_NAME,
-});
 
 exports.signup = (req, res) => {
   console.log(req.body);
+  console.log(req.file);
   var clean = sanitize(req.body); // Création d'une variable qui contient "req.body" en s'assurant qu'il n'y ai plus de script à l'intérieur
 
   let regexpPassword = new RegExp(
@@ -47,7 +41,7 @@ exports.signup = (req, res) => {
         };
 
         try {
-          connection.query(
+          connect.connection.query(
             `INSERT INTO USERS(username, password) VALUES("${user.username}", "${user.password}")`
           );
           res.status(201).send({ msg: "Created User" });
@@ -61,29 +55,40 @@ exports.signup = (req, res) => {
 
 exports.login = (req, res, next) => {
   var clean = sanitize(req.body); // Check si il y a des scripts envoyés
-  User.findOne({ email: clean.email }) // On recherche l'email de l'utilisateur dans mongoDB
-    .then((user) => {
-      if (!user) {
-        // Si l'on ne retrouve pas son mail dans mongoDB
+  connect.connection.query(
+    `SELECT * FROM users WHERE username='${clean.username}'`,
+    (err, users, rows) => {
+      console.log(users); // Objet JSON avec la structure de la BDD
+      console.log(clean.password);
+      console.log(users[0].password);
+      if (!users) {
+        // Si l'on ne retrouve pas son mail dans la BDD
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
       }
+      console.log(clean.password);
+      console.log(users[0].password);
+      console.log(users[0].id);
       bcrypt
-        .compare(clean.password, user.password) // Bcrypt compare le mot de passe tapé avec celui contenu dans la base de données
+        .compare(clean.password, users[0].password) // Bcrypt compare le mot de passe tapé avec celui contenu dans la base de données
         .then((valid) => {
           if (!valid) {
             // Si le mot de passe n'est pas bon
             return res.status(401).json({ error: "Mot de passe incorrect !" });
           }
+          localStorage.setItem("username", JSON.stringify(clean.username));
+          location.href = "/home";
+          console.log("aaa");
           res.status(200).json({
             // Si le mot de passe est bon cela renvoi une ID + un Token
-            userId: user._id,
-            token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
+            userId: users[0].id,
+
+            token: jwt.sign({ userId: users[0].id }, "RANDOM_TOKEN_SECRET", {
               // Génération d'un token qui sera valide 24H
               expiresIn: "24h",
             }),
           });
         })
-        .catch((error) => res.status(500).json({ error }));
-    })
-    .catch((error) => res.status(500).json({ error }));
+        .catch((error) => res.status(500).json({ error: "ici" }));
+    }
+  );
 };

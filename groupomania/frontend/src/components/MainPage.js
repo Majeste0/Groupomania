@@ -7,7 +7,6 @@ const MainPage = () => {
     <div>
       <BannerLogged />
       <NewArticleBtn />
-      <NewGifBtn />
     </div>
   );
 };

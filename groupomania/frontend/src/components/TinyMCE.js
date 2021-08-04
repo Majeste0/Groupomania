@@ -8,9 +8,12 @@ export default function App() {
       console.log(editorRef.current.getContent());
     }
   };
+  // var myContent = tinymce.get("textarea").getContent();
   return (
     <>
       <Editor
+        id="textarea"
+        apiKey="i1bsjdg05vimylyy8jf0j1a9uedf5rqi7zkpw64mqzmi6gty"
         onInit={(evt, editor) => (editorRef.current = editor)}
         init={{
           height: 500,

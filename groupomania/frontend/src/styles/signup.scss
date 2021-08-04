@@ -20,6 +20,14 @@
     display: flex;
     text-align: center;
     width: 80%;
+    input {
+      height: 30px;
+      font-size: 20px;
+      font-family: "Dosis-semibold", sans-serif;
+      &:focus {
+        outline: none;
+      }
+    }
   }
 }
 
@@ -33,14 +41,32 @@
   p {
     margin-top: 0;
     margin-bottom: 5px;
-    font-family: "Dosis", sans-serif;
+    font-family: "Dosis-extralight", sans-serif;
     font-size: 30px;
     color: white;
-    text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
-      0px 18px 23px rgba(0, 0, 0, 0.1);
+    text-shadow: 0px 4px 3px rgb(0 0 0 / 40%), 0px 8px 13px rgb(0 0 0 / 10%),
+      0px 18px 23px rgb(0 0 0 / 10%);
   }
 }
 
 .signup_submit {
-  margin-top: 10px;
+  margin-top: -10px;
+  background-color: black;
+  border-radius: 28px;
+  border: 1px solid #c0392b;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 16px 31px;
+  text-decoration: none;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+  &:active {
+    position: relative;
+    top: 1px;
+  }
 }

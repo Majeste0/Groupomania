@@ -1,0 +1,25 @@
+.profile_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile_placeholder {
+    border : solid black 1px; 
+    width: 200px;
+    height: 200px;
+    margin: 50px auto auto auto;
+}
+.profile_btn {
+    width: 30%;
+    padding: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.profile_delete {
+    padding: 5px;
+    border: 1px black solid;
+    background: none;
+    cursor: pointer;
+    color: red;
+}

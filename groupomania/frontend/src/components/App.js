@@ -4,6 +4,8 @@ import Signup from "./Signup";
 import MainPage from "./MainPage";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Newpost from "./Newpost";
+import Profile from "./Profile";
+import NewGif from "./NewGif";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
           <Route path="/signup" exact component={Signup} />
           <Route path="/home" exact component={MainPage} />
           <Route path="/newpost" exact component={Newpost} />
+          <Route path="/profile" exact component={Profile} />
+          <Route path="/newgif" exact component={NewGif} />
           <Route
             path="/"
             component={() => <div>ERREUR 404 Problème d'URL</div>}
