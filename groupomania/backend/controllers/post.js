@@ -5,11 +5,11 @@ const path = require("path");
 const { connection } = require("../connection/database");
 
 exports.newPost = (req, res, err) => {
-  console.log(req.body.title + "title");
-  console.log(req.body.message + "message");
-  console.log(req.file.filename + "image");
-  console.log(req.params.id);
-  console.log(req.body);
+  console.log(req.body.title + " title");
+  console.log(req.body.message + " message");
+  console.log(req.file.filename + " image");
+  console.log(req.params.id + " params.id");
+  console.log(req.body + " req.body");
 
   try {
     connect.connection.query(

@@ -38,3 +38,20 @@
 
   cursor: pointer;
 }
+
+.uploadIMG {
+  margin-top: 20px;
+}
+
+.uploadLABEL {
+  margin: auto;
+  display: block;
+  font-family: Teko;
+  font-size: 20px;
+  input {
+    margin-top: 0px;
+  }
+  p {
+    margin-bottom: 5px;
+  }
+}

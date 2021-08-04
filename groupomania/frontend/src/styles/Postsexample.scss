@@ -1,0 +1,36 @@
+.one_post {
+  display: flex;
+  width: 70%;
+  margin: auto;
+  margin-top: 50px;
+  flex-direction: column;
+  border: solid 2px black;
+  padding: 15px;
+  cursor: pointer;
+  height: 170px;
+  /* &:nth-last-child(n) {
+    margin-bottom: 20px;
+  }*/
+  &:hover {
+    background-color: lightgrey;
+  }
+}
+
+.infos_post {
+  display: flex;
+  justify-content: space-between;
+}
+.titre_post {
+  margin-left: 20px;
+}
+
+.username_post {
+  margin-right: 20px;
+}
+.message_post {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

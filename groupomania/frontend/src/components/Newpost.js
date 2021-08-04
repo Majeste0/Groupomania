@@ -36,13 +36,14 @@ const NewPost = () => {
         <label for="message" className="message_txt" name="message">
           <TinyyMCE />
         </label>
-        <label>
+        <label className="uploadLABEL">
+          <p> Rajouter une image... (optionnel)</p>
           <input
             type="file"
             name="image"
             accept="image/*"
             multiple={false}
-            className=""
+            className="uploadIMG"
           />
         </label>
         <button className="btn_newpostIN">Envoyer !</button>

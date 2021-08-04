@@ -1,13 +1,12 @@
 const db = require("../connection/database");
-var sanitize = require("mongo-sanitize"); // Permet d'éviter les envoi de scripts lors de la connection
+const sanitize = require("mongo-sanitize"); // Permet d'éviter les envoi de scripts lors de la connection
 const bcrypt = require("bcrypt"); // Permet de hasher les données
 const connect = require("../connection/database.js");
 const mysql = require("mysql");
 require("dotenv").config(); // Package nous permettant d'utiliser les variable d'environnement
 
 exports.signup = (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
+  console.log(req.body + " req.body");
   var clean = sanitize(req.body); // Création d'une variable qui contient "req.body" en s'assurant qu'il n'y ai plus de script à l'intérieur
 
   let regexpPassword = new RegExp(
@@ -58,16 +57,18 @@ exports.login = (req, res, next) => {
   connect.connection.query(
     `SELECT * FROM users WHERE username='${clean.username}'`,
     (err, users, rows) => {
-      console.log(users); // Objet JSON avec la structure de la BDD
-      console.log(clean.password);
-      console.log(users[0].password);
+      console.log(users + " users"); // Objet JSON avec la structure de la BDD
+      console.log(clean.password + " clean.password");
+      console.log(users[0].password + " users[0].password");
+      console.log(users[0].username + " users[0].username");
+      console.log(clean.username + " clean.username");
       if (!users) {
         // Si l'on ne retrouve pas son mail dans la BDD
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
       }
-      console.log(clean.password);
-      console.log(users[0].password);
-      console.log(users[0].id);
+      console.log(clean.password + " clean.password");
+      console.log(users[0].password + " users[0].password");
+      console.log(users[0].id + " users[0].id");
       bcrypt
         .compare(clean.password, users[0].password) // Bcrypt compare le mot de passe tapé avec celui contenu dans la base de données
         .then((valid) => {
@@ -81,7 +82,6 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             // Si le mot de passe est bon cela renvoi une ID + un Token
             userId: users[0].id,
-
             token: jwt.sign({ userId: users[0].id }, "RANDOM_TOKEN_SECRET", {
               // Génération d'un token qui sera valide 24H
               expiresIn: "24h",

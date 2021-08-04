@@ -1,16 +1,17 @@
 import "../styles/Signup.scss";
 import Banner from "./Banner";
+import { useForm } from "react-hook-form";
 
 const Signup = () => {
-  // const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    data.preventDefault();
-    const form = new FormData(data.target);
-
     fetch("http://localhost:3000/api/auth/signup", {
       method: "POST",
-      body: form,
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
   };
 
@@ -18,23 +19,23 @@ const Signup = () => {
     <div>
       <Banner />
       <h2 className="signup_title">Inscription</h2>
-      <form onSubmit={onSubmit} className="signup_form">
+      <form onSubmit={handleSubmit(onSubmit)} className="signup_form">
         <div className="signup_input">
           <label>
             <p> Nom d'utilisateur </p>
-            <input type="text" />
+            <input
+              type="text"
+              name="username"
+              {...register("username", { required: true })}
+            />
           </label>
           <label>
             <p> Mot de passe </p>
-            <input type="password" autoComplete="off" />
-          </label>
-          <label>
             <input
-              type="file"
-              name="image"
-              accept="image/*"
-              multiple={false}
-              className="btn_GifImg"
+              type="password"
+              name="password"
+              autoComplete="off"
+              {...register("password", { required: true })}
             />
           </label>
         </div>
@@ -45,3 +46,5 @@ const Signup = () => {
 };
 
 export default Signup;
+
+const UserForm = (props) => {};

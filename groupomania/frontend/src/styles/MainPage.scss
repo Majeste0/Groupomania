@@ -1,0 +1,19 @@
+.header_MainPage {
+  display: flex;
+  section {
+    right: 0;
+    position: absolute;
+  }
+}
+
+.main_MainPage {
+  display: flex;
+  flex-direction: column;
+}
+
+.title_MainPage {
+  margin: auto;
+  font-family: Teko;
+  font-size: 50px;
+  margin-top: 20px;
+}
