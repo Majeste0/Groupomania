@@ -3,6 +3,8 @@ import NewArticleBtn from "./NewArticleBtn";
 import NewGifBtn from "./NewGifBtn";
 import "../styles/MainPage.scss";
 import Postsexample from "./Postsexample";
+import ReturnHome from "./ReturnHome";
+import Publications from "./Publications";
 
 const MainPage = () => {
   return (
@@ -12,10 +14,8 @@ const MainPage = () => {
         <NewArticleBtn />
         <h3 className="title_MainPage">Liste des posts</h3>
       </header>
-      <Postsexample />
-      <Postsexample />
-      <Postsexample />
-      <Postsexample />
+      <Publications />
+      <ReturnHome />
     </div>
   );
 };

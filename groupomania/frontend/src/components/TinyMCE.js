@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Editor } from "@tinymce/tinymce-react";
+import tinymce, { Editor } from "@tinymce/tinymce-react";
 
 export default function App() {
   const editorRef = useRef(null);
@@ -8,10 +8,13 @@ export default function App() {
       console.log(editorRef.current.getContent());
     }
   };
-  // var myContent = tinymce.get("textarea").getContent();
+
   return (
     <>
       <Editor
+        onChange={() => {
+          console.log(editorRef.current.getContent({ format: "text" }));
+        }}
         id="textarea"
         apiKey="i1bsjdg05vimylyy8jf0j1a9uedf5rqi7zkpw64mqzmi6gty"
         onInit={(evt, editor) => (editorRef.current = editor)}

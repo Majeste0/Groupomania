@@ -1,11 +1,18 @@
 import { useHistory } from "react-router-dom";
 
-const x = () => {
-  let history = useHistory();
-  return (
-    <div>
-      <h1>Test</h1>
-      <button onClick={() => history.push("/")}>Retour à l'accueil</button>
-    </div>
-  );
+const ReturnHome = () => {
+  const onClick = () => {
+    console.log("test");
+    fetch("http://localhost:3000/api/post/allPosts", {})
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data[0]);
+        console.table(data);
+        console.table(data.id);
+        console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data));
+      });
+  };
+  return <button onClick={onClick}> Click me </button>;
 };
+export default ReturnHome;

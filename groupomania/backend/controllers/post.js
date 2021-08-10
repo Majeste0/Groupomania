@@ -5,11 +5,12 @@ const path = require("path");
 const { connection } = require("../connection/database");
 
 exports.newPost = (req, res, err) => {
-  console.log(req.body.title + " title");
+  /* console.log(req.body.title + " title");
   console.log(req.body.message + " message");
   console.log(req.file.filename + " image");
   console.log(req.params.id + " params.id");
   console.log(req.body + " req.body");
+  */
 
   try {
     connect.connection.query(
@@ -35,13 +36,14 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.getAllPost = (req, res, next) => {
-  try {
-    res.status(201).send({ msg: "Post récupéré" });
-  } catch (err) {
-    console.log(err);
-  }
+  connect.connection.query(
+    `SELECT * FROM posts `,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    }
+  );
 };
-
 exports.deleteOnePost = (req, res, next) => {
   try {
     connect.connection.query(
@@ -56,7 +58,7 @@ exports.deleteOnePost = (req, res, next) => {
 exports.modifyOnePost = (req, res, next) => {
   try {
     connect.connection.query(
-      `UPDATE posts(title,message) SET  ${req.body.title}, ${req.body.message} WHERE posts.id = ${req.params.id}`
+      `UPDATE posts SET title = ${req.body.title}, message = ${req.body.message} WHERE posts.id = ${req.params.id}`
     );
     res.status(201).send({ msg: "Post modifié" });
   } catch (err) {
@@ -78,21 +80,22 @@ exports.getUserPosts = (req, res, next) => {
 exports.newComment = (req, res, next) => {
   try {
     connect.connection.query(
-      `INSERT INTO commentaires(USERID,POSTID,MESSAGE) VALUES ${req.body.userId}, ${req.params.id}, ${req.body.content}`
+      `INSERT INTO commentaires(USERID,POSTID,MESSAGE) VALUES ${4}, ${4}, ${43}`
     );
-
-    res.status(201).send({ msg: "Post récupéré" });
+    res.status(201).send({ msg: "Commentaire crée" });
   } catch (err) {
     console.log(err);
   }
 };
 
 exports.getAllComments = (req, res, next) => {
-  try {
-    res.status(201).send({ msg: "Post récupéré" });
-  } catch (err) {
-    console.log(err);
-  }
+  connect.connection.query(
+    `SELECT * FROM commentaires WHERE commentaires.postid = ? `,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    }
+  );
 };
 
 exports.deleteComment = (req, res, next) => {

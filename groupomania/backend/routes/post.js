@@ -6,21 +6,7 @@ const multer = require("../middleware/multer-config");
 
 const postCtrl = require("../controllers/post");
 
-// Commentaires
-
-// Create
-// router.post("/recupImage", multer, postCtrl.newComment);
-
-// Read
-// router.get("/recupImage", multer, postCtrl.getAllComments);
-
-// Update
-//router.put("/recupImage", post.Ctrl. "")
-
-// Delete
-// router.delete("/recupImage", auth, postCtrl.deleteComment);
-
-// Posts
+// -- Posts --
 
 //Create
 router.post("/recupImage", multer, postCtrl.newPost);
@@ -35,5 +21,19 @@ router.post("/recupImage", multer, postCtrl.newPost);
 
 // Delete
 // router.delete("/recupImage", multer, postCtrl.deleteOnePost);
+
+// -- Commentaires --
+
+// Create
+router.post("/newcommentaire", postCtrl.newComment);
+
+// Read
+router.get("/allPosts", multer, postCtrl.getAllPost);
+
+// Update
+//router.put("/recupImage", post.Ctrl. "")
+
+// Delete
+// router.delete("/recupImage", auth, postCtrl.deleteComment);
 
 module.exports = router;

@@ -1,18 +1,42 @@
 import "../styles/Login.scss";
 import Banner from "./Banner";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { Redirect } from "react-router";
 
 const Login = () => {
+  const [redirect, setRedirect] = useState(false);
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log(JSON.stringify(data.username));
+    localStorage.getItem("username");
+    let username = JSON.stringify(data.username);
+    username = username.replace(/["']/g, "");
+
+    localStorage.getItem("userid");
+    localStorage.getItem("jwt");
+
     fetch("http://localhost:3000/api/auth/login", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.token) {
+          let userid = JSON.stringify(data.userId);
+          localStorage.setItem("userid", userid);
+          localStorage.setItem("username", username);
+          localStorage.setItem("jwt", data.token);
+          setRedirect(true);
+        }
+      });
   };
+
+  if (redirect) {
+    return <Redirect to="/home" />;
+  }
+
   return (
     <div>
       <Banner />

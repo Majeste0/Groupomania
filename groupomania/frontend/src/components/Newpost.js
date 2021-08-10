@@ -3,12 +3,14 @@ import "../styles/Newpost.scss";
 import TinyyMCE from "./TinyMCE";
 import NewGif from "./NewGif";
 
-const NewPost = () => {
+const NewPost = (props) => {
   const onSubmit = (data) => {
     data.preventDefault();
-    const form = new FormData(data.target);
+    let form = new FormData(data.target);
+    // userid: localStorage.getItem("userid"),
+
     console.log(data.target);
-    console.log(form);
+    console.log(JSON.stringify(form) + "form");
     console.log(data);
     let postOptions = {
       method: "POST",
@@ -18,6 +20,7 @@ const NewPost = () => {
       .then((response) => response.json())
       .then((json) => {
         console.log(json + "json");
+        console.log(JSON.stringify(json) + "json");
       });
   };
   return (

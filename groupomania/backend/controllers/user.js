@@ -3,6 +3,7 @@ const sanitize = require("mongo-sanitize"); // Permet d'éviter les envoi de scr
 const bcrypt = require("bcrypt"); // Permet de hasher les données
 const connect = require("../connection/database.js");
 const mysql = require("mysql");
+const jwt = require("jsonwebtoken");
 require("dotenv").config(); // Package nous permettant d'utiliser les variable d'environnement
 
 exports.signup = (req, res) => {
@@ -63,8 +64,8 @@ exports.login = (req, res, next) => {
       console.log(users[0].username + " users[0].username");
       console.log(clean.username + " clean.username");
       if (!users) {
-        // Si l'on ne retrouve pas son mail dans la BDD
-        return res.status(401).json({ error: "Utilisateur non trouvé !" });
+        // Si l'on ne retrouve pas son username dans la BDD
+        res.status(401).json({ error: "Utilisateur non trouvé !" });
       }
       console.log(clean.password + " clean.password");
       console.log(users[0].password + " users[0].password");
@@ -74,11 +75,8 @@ exports.login = (req, res, next) => {
         .then((valid) => {
           if (!valid) {
             // Si le mot de passe n'est pas bon
-            return res.status(401).json({ error: "Mot de passe incorrect !" });
+            res.status(401).json({ message: "Mot de passe incorrect !" });
           }
-          localStorage.setItem("username", JSON.stringify(clean.username));
-          location.href = "/home";
-          console.log("aaa");
           res.status(200).json({
             // Si le mot de passe est bon cela renvoi une ID + un Token
             userId: users[0].id,
@@ -91,4 +89,17 @@ exports.login = (req, res, next) => {
         .catch((error) => res.status(500).json({ error: "ici" }));
     }
   );
+};
+
+exports.deleteUser = (req, res, next) => {
+  console.log(req.body.userid + " r.b.uid");
+  console.log(req.body + " r.b.uid");
+  console.log(req.body.userid + " r.b.uid");
+  try {
+    console.log(req.body.userid + " r.b.uid");
+    connect.connection.query(`DELETE FROM users WHERE id='${req.body.userid}'`);
+    res.status(201).send({ msg: "Deleted User" });
+  } catch (err) {
+    console.log(err);
+  }
 };

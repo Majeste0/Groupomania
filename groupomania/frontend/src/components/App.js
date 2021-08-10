@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Newpost from "./Newpost";
 import Profile from "./Profile";
 import NewGif from "./NewGif";
+import SinglePost from "./SinglePost";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/newpost" exact component={Newpost} />
           <Route path="/profile" exact component={Profile} />
           <Route path="/newgif" exact component={NewGif} />
+          <Route path="/post" exact component={SinglePost} />
           <Route
             path="/"
             component={() => <div>ERREUR 404 Problème d'URL</div>}

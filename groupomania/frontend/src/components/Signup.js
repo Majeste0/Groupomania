@@ -1,9 +1,12 @@
 import "../styles/Signup.scss";
 import Banner from "./Banner";
 import { useForm } from "react-hook-form";
+import { Redirect } from "react-router-dom";
+import { useState } from "react";
 
 const Signup = () => {
   const { register, handleSubmit } = useForm();
+  const [redirect, setRedirect] = useState(false);
 
   const onSubmit = (data) => {
     fetch("http://localhost:3000/api/auth/signup", {
@@ -12,8 +15,20 @@ const Signup = () => {
       headers: {
         "Content-Type": "application/json",
       },
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let msg = JSON.stringify(data.msg);
+        msg = msg.replace(/["']/g, "");
+
+        if (msg === "Created User") {
+          setRedirect(true);
+        }
+      });
   };
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div>
