@@ -1,4 +1,6 @@
 import "../styles/Postsexample.scss";
+import { faFlag } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Postsexample = (props) => {
   const onClick = () => {
@@ -8,35 +10,30 @@ const Postsexample = (props) => {
       localStorage.setItem("CurrentID", "");
     }
   };
+
+  const redirect = () => {
+    console.log(props.username);
+    console.log(props.id);
+  };
+  const report = () => {
+    //fetch()
+  };
   return (
-    <div className="one_post">
+    <div className="one_post" onClick={redirect}>
       <div className="infos_post">
         <h4 className="titre_post">{props.title}</h4>
-        <p className="username_post">{props.userid}</p>
+        <p className="username_post"> De : {props.username}</p>
       </div>
-      <p className="message_post">{props.message}</p>
-      <img
-        src="localhost:3000/images/${
-          req.file.filename}"
-      />
+      <div className="msgimg_post">
+        <img
+          className="img_post"
+          src={"http://localhost:3000/images/" + props.image}
+        />
+        <p className="message_post">{props.message}</p>
+      </div>
+      <FontAwesomeIcon className="faFlag" icon={faFlag} onClick={report} />
     </div>
   );
 };
 
 export default Postsexample;
-
-/*
-let addLocal = () => {
-  if (localStorage.getItem("panier")) {
-    let temp = JSON.parse(localStorage.getItem("panier"));
-    temp.push(r);
-    localStorage.setItem("panier", JSON.stringify(temp));
-    panier.length++;
-    location.reload();
-  } //Création du panier
-  else localStorage.setItem("panier", "[" + JSON.stringify(r) + "]");
-  location.reload();
-};
-Button.onclick = () => {
-  addLocal();
-}; */

@@ -8,7 +8,7 @@ const Publications = (props) => {
     fetch("http://localhost:3000/api/post/allPosts", {}).then((res) =>
       res.json().then((json) => setData(json))
     );
-  });
+  }, []);
 
   return (
     <>
@@ -20,6 +20,7 @@ const Publications = (props) => {
             title={el.title}
             message={el.message}
             image={el.image}
+            username={el.username}
           />
         ))}
     </>

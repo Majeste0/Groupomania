@@ -5,18 +5,10 @@ const path = require("path");
 const { connection } = require("../connection/database");
 
 exports.newPost = (req, res, err) => {
-  /* console.log(req.body.title + " title");
-  console.log(req.body.message + " message");
-  console.log(req.file.filename + " image");
-  console.log(req.params.id + " params.id");
-  console.log(req.body + " req.body");
-  */
-
+  console.log(req.body);
   try {
     connect.connection.query(
-      `INSERT INTO posts(userid, title, message, image) VALUES ('${3}', '${
-        req.body.title
-      }', '${req.body.message}', '${req.file.filename}')`
+      `INSERT INTO posts(userid, username, title, message, image) VALUES ('${req.body.id}', '${req.body.username}', '${req.body.title}', '${req.body.message}', '${req.file.filename}')`
     );
     res.status(201).send({ msg: "Post crée" });
   } catch (err) {
@@ -58,7 +50,9 @@ exports.deleteOnePost = (req, res, next) => {
 exports.modifyOnePost = (req, res, next) => {
   try {
     connect.connection.query(
-      `UPDATE posts SET title = ${req.body.title}, message = ${req.body.message} WHERE posts.id = ${req.params.id}`
+      `UPDATE posts SET title = ${req.body.title}, message = ${
+        req.body.message
+      } WHERE posts.id = ${9}`
     );
     res.status(201).send({ msg: "Post modifié" });
   } catch (err) {
@@ -80,7 +74,9 @@ exports.getUserPosts = (req, res, next) => {
 exports.newComment = (req, res, next) => {
   try {
     connect.connection.query(
-      `INSERT INTO commentaires(USERID,POSTID,MESSAGE) VALUES ${4}, ${4}, ${43}`
+      `INSERT INTO commentaires(userid, postid, message) VALUES ('${3}', '${3}', '${
+        req.body.message
+      }')`
     );
     res.status(201).send({ msg: "Commentaire crée" });
   } catch (err) {
@@ -90,7 +86,7 @@ exports.newComment = (req, res, next) => {
 
 exports.getAllComments = (req, res, next) => {
   connect.connection.query(
-    `SELECT * FROM commentaires WHERE commentaires.postid = ? `,
+    `SELECT * FROM commentaires WHERE commentaires.postid = 3 `,
     function (error, results, fields) {
       if (error) throw error;
       res.send(results);

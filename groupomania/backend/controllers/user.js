@@ -92,6 +92,7 @@ exports.login = (req, res, next) => {
 };
 
 exports.deleteUser = (req, res, next) => {
+  console.log("test");
   console.log(req.body.userid + " r.b.uid");
   console.log(req.body + " r.b.uid");
   console.log(req.body.userid + " r.b.uid");

@@ -1,30 +1,55 @@
 import "../styles/Profile.scss";
 import BannerLogged from "./BannerLogged";
+import { useState } from "react";
 
 const Profile = () => {
+  const [toggle, setToggle] = useState(false);
+
   const onClick = () => {
     console.log("test");
-    let userid = JSON.parse(localStorage.getItem("userid"));
+    setToggle(!toggle);
+  };
+  const confDel = () => {
+    let userid = localStorage.getItem("userid");
     fetch("http://localhost:3000/api/auth/deleteUser", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: userid,
+      body: JSON.stringify({
+        userid: JSON.parse(localStorage.getItem("userid")),
+      }),
     });
   };
-
   return (
     <div>
       <BannerLogged />
       <div className="profile_info">
-        <div className="profile_placeholder"></div>
-        <button className="profile_btn">Modifier l'image de profil</button>
-        <p> {localStorage.getItem("username")} </p>
+        <p className="profile_username">
+          {" "}
+          Nom de l'utilisateur <br /> {localStorage.getItem("username")}{" "}
+        </p>
         <button className="profile_delete" onClick={onClick}>
           Supprimer définitivement le compte
         </button>
       </div>
+      {toggle && (
+        <div>
+          <p className="profile_conf">
+            Êtes vous sur de vouloir supprimer votre compte ?
+          </p>
+          <div className="btn_wrapper">
+            <button className="profile_btnyes" onClick={confDel}>
+              {" "}
+              Oui
+            </button>
+            <button className="profile_btnno" onClick={onClick}>
+              {" "}
+              Non
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

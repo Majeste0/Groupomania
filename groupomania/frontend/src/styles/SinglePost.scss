@@ -55,3 +55,32 @@
     top: 1px;
   }
 }
+
+.fa-edit {
+  left: 83%;
+  display: block;
+  position: absolute;
+  padding: 0;
+  margin: 8px;
+  font-size: 142%;
+  cursor: pointer;
+}
+
+.modify_title {
+  margin-left: 20px;
+  font-size: 27px;
+}
+.faArrowLeft {
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.modify_text {
+  margin-left: 30%;
+  height: 100px;
+  display: flex;
+  /* align-content: center; */
+  /* justify-content: center; */
+  width: 80%;
+  margin: auto;
+}

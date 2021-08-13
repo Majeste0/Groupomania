@@ -1,16 +1,17 @@
 import BannerLogged from "./BannerLogged";
 import "../styles/Newpost.scss";
 import TinyyMCE from "./TinyMCE";
-import NewGif from "./NewGif";
 
 const NewPost = (props) => {
+  console.log(typeof localStorage.getItem("userid"));
+
   const onSubmit = (data) => {
     data.preventDefault();
     let form = new FormData(data.target);
-    // userid: localStorage.getItem("userid"),
-
+    form.append("id", localStorage.getItem("userid"));
+    form.append("username", localStorage.getItem("username"));
     console.log(data.target);
-    console.log(JSON.stringify(form) + "form");
+    console.log(form + "form");
     console.log(data);
     let postOptions = {
       method: "POST",
@@ -23,6 +24,7 @@ const NewPost = (props) => {
         console.log(JSON.stringify(json) + "json");
       });
   };
+
   return (
     <div>
       <BannerLogged />
@@ -37,7 +39,14 @@ const NewPost = (props) => {
           required
         />
         <label for="message" className="message_txt" name="message">
-          <TinyyMCE />
+          {/* <TinyyMCE /> */}
+          <textarea
+            className="newpost_message"
+            type="text"
+            placeholder="Message..."
+            name="message"
+            required
+          />
         </label>
         <label className="uploadLABEL">
           <p> Rajouter une image... (optionnel)</p>

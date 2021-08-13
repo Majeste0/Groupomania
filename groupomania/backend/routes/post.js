@@ -12,12 +12,13 @@ const postCtrl = require("../controllers/post");
 router.post("/recupImage", multer, postCtrl.newPost);
 
 // Read
+router.get("/allPosts", multer, postCtrl.getAllPost);
 // router.get("/recupImage", multer, postCtrl.getAllPost);
 // router.get("/recupImage", multer, postCtrl.getOnePost);
 // router.get("/recupImage", multer, postCtrl.getUserPosts);
 
 // Update
-// router.put("/recupImage", multer, postCtrl.modifyOnePost);
+router.put("/modifyPost", postCtrl.modifyOnePost);
 
 // Delete
 // router.delete("/recupImage", multer, postCtrl.deleteOnePost);
@@ -28,10 +29,9 @@ router.post("/recupImage", multer, postCtrl.newPost);
 router.post("/newcommentaire", postCtrl.newComment);
 
 // Read
-router.get("/allPosts", multer, postCtrl.getAllPost);
+router.get("/allComments", multer, postCtrl.getAllComments);
 
 // Update
-//router.put("/recupImage", post.Ctrl. "")
 
 // Delete
 // router.delete("/recupImage", auth, postCtrl.deleteComment);
