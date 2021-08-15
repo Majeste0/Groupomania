@@ -1,22 +1,25 @@
 import "../styles/Postsexample.scss";
-import { faFlag } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Postsexample = (props) => {
-  const onClick = () => {
-    if (localStorage.getItem("CurrentID")) {
-      localStorage.getItem("CurrentID");
-    } else {
-      localStorage.setItem("CurrentID", "");
-    }
-  };
+  let history = useHistory();
 
   const redirect = () => {
     console.log(props.username);
     console.log(props.id);
+    let username = props.username;
+    console.log(username);
+    history.push("/post/" + props.id);
   };
   const report = () => {
     //fetch()
+  };
+  const test = () => {
+    console.log("aaaaa");
+    window.location.reload();
   };
   return (
     <div className="one_post" onClick={redirect}>
@@ -31,7 +34,18 @@ const Postsexample = (props) => {
         />
         <p className="message_post">{props.message}</p>
       </div>
-      <FontAwesomeIcon className="faFlag" icon={faFlag} onClick={report} />
+      <div className="likes_post" onClick={test}>
+        <FontAwesomeIcon
+          className="faThumbsUp"
+          icon={faThumbsUp}
+          onClick={report}
+        />
+        <FontAwesomeIcon
+          className="faThumbsDown"
+          icon={faThumbsDown}
+          onClick={report}
+        />
+      </div>
     </div>
   );
 };

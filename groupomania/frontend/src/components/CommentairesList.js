@@ -4,13 +4,9 @@ const CommentairesList = (props) => {
   return (
     <div className="one_com">
       <div className="infos_com">
-        <p className="username_com">{props.userid}</p>
+        <p className="username_com"> De : {props.username}</p>
       </div>
       <p className="message_com">{props.message}</p>
-      <img
-        src="localhost:3000/images/${
-          req.file.filename}"
-      />
     </div>
   );
 };

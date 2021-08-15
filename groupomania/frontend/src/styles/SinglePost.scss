@@ -7,7 +7,6 @@
   border: solid 2px black;
   padding: 15px;
 
-  height: 170px;
   /* &:nth-last-child(n) {
       margin-bottom: 20px;
     }*/
@@ -19,17 +18,14 @@
 }
 .titre_Spost {
   margin-left: 20px;
+  font-size: 40px;
 }
 
 .username_Spost {
   margin-right: 20px;
+  font-size: 20px;
 }
 .message_Spost {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .newbtn_Spost {
@@ -83,4 +79,10 @@
   /* justify-content: center; */
   width: 80%;
   margin: auto;
+}
+
+.img_Spost {
+  max-width: 80%;
+  display: block;
+  margin: 20px auto;
 }

@@ -75,14 +75,24 @@
   display: flex;
 }
 
-.faFlag {
+.faThumbsUp {
   color: black;
-  float: right;
-  display: block;
-  position: absolute;
-  left: 84%;
-  margin-top: 160px;
+
+  z-index: 10;
+  &:hover {
+    color: green;
+  }
+}
+.faThumbsDown {
+  color: black;
+  margin-left: 10px;
   &:hover {
     color: red;
   }
+}
+
+.likes_post {
+  display: flex;
+  float: right;
+  justify-content: flex-end;
 }

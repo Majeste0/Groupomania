@@ -1,6 +1,6 @@
 .newcom_btn {
   width: 20%;
-  margin: auto;
+  margin: auto auto 20px auto;
 }
 
 .newcom_input {
@@ -29,6 +29,7 @@
   padding: 0px 31px;
   text-decoration: none;
   display: block;
+  margin-bottom: 20px;
   &:hover {
     background-color: white;
     color: black;

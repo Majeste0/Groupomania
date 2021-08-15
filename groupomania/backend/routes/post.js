@@ -14,7 +14,7 @@ router.post("/recupImage", multer, postCtrl.newPost);
 // Read
 router.get("/allPosts", multer, postCtrl.getAllPost);
 // router.get("/recupImage", multer, postCtrl.getAllPost);
-// router.get("/recupImage", multer, postCtrl.getOnePost);
+router.get("/:id", multer, postCtrl.getOnePost);
 // router.get("/recupImage", multer, postCtrl.getUserPosts);
 
 // Update
@@ -26,10 +26,10 @@ router.put("/modifyPost", postCtrl.modifyOnePost);
 // -- Commentaires --
 
 // Create
-router.post("/newcommentaire", postCtrl.newComment);
+router.post("/newCommentaire", postCtrl.newComment);
 
 // Read
-router.get("/allComments", multer, postCtrl.getAllComments);
+router.get("/allComments/:id", multer, postCtrl.getAllComments);
 
 // Update
 

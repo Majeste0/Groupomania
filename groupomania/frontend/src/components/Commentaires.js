@@ -2,20 +2,31 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import CommentairesList from "./CommentairesList";
 import "../styles/Commentaires.scss";
+import { useParams } from "react-router-dom";
 
 const Commentaires = (props) => {
+  let { id } = useParams();
   // add new comments
   const { register, handleSubmit } = useForm();
   let send = "Ajouter un commentaire";
+
   const onSubmit = (data) => {
+    let message = data.message;
+    let userid = localStorage.getItem("userid");
+    let username = localStorage.getItem("username");
+    let postid = id;
+    let form = { message, userid, username, postid };
+
+    console.log(form);
+    console.log(JSON.stringify(form));
+
     let postOptions = {
       method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      body: JSON.stringify(form),
+      headers: { "Content-Type": "application/json" },
     };
-    fetch("http://localhost:3000/api/post/newcommentaire/", postOptions)
+
+    fetch("http://localhost:3000/api/post/newCommentaire/", postOptions)
       .then((response) => response.json())
       .then((json) => {
         console.log(JSON.stringify(json) + "json");
@@ -23,6 +34,7 @@ const Commentaires = (props) => {
     send = "Message envoyé !";
     console.log(send);
     setToggle(!toggle);
+    window.location.reload();
   };
 
   const [toggle, setToggle] = useState(true);
@@ -31,14 +43,13 @@ const Commentaires = (props) => {
     setToggle(!toggle);
   };
 
-  // get all comments
-  /* useEffect(() => {
-    fetch("http://localhost:3000/api/post/allComments", {}).then((res) =>
+  useEffect(() => {
+    fetch("http://localhost:3000/api/post/allComments/" + id, {}).then((res) =>
       res.json().then((json) => setData(json))
     );
-  });
-*/
-  // const [Data, setData] = useState(false);
+  }, []);
+
+  const [Data, setData] = useState(false);
 
   return (
     <div>
@@ -61,16 +72,10 @@ const Commentaires = (props) => {
         </form>
       )}
       <div>
-        {/*Data &&
+        {Data &&
           Data.map((el) => (
-            <CommentairesList
-              id={el.id}
-              userid={el.userid}
-              title={el.title}
-              message={el.message}
-              image={el.image}
-            />
-          ))*/}
+            <CommentairesList username={el.username} message={el.message} />
+          ))}
       </div>
     </div>
   );

@@ -2,13 +2,12 @@
   display: flex;
   width: 70%;
   margin: auto;
-  margin-top: 50px;
   flex-direction: column;
   border: solid 2px black;
   padding: 15px;
-
   border-radius: 25px;
-  height: 170px;
+  margin-bottom: 50px;
+
   /* &:nth-last-child(n) {
         margin-bottom: 20px;
       }*/
@@ -24,6 +23,7 @@
 
 .username_com {
   margin-right: 20px;
+  font-weight: bold;
 }
 .message_com {
   display: -webkit-box;

@@ -12,7 +12,7 @@ const Login = () => {
     localStorage.getItem("username");
     let username = JSON.stringify(data.username);
     username = username.replace(/["']/g, "");
-
+    
     localStorage.getItem("userid");
     localStorage.getItem("jwt");
 
