@@ -49,7 +49,7 @@ const NewPost = (props) => {
           />
         </label>
         <label className="uploadLABEL">
-          <p> Rajouter une image... (optionnel)</p>
+          <p> Rajouter une image... </p>
           <input
             type="file"
             name="image"

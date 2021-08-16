@@ -92,12 +92,7 @@ exports.login = (req, res, next) => {
 };
 
 exports.deleteUser = (req, res, next) => {
-  console.log("test");
-  console.log(req.body.userid + " r.b.uid");
-  console.log(req.body + " r.b.uid");
-  console.log(req.body.userid + " r.b.uid");
   try {
-    console.log(req.body.userid + " r.b.uid");
     connect.connection.query(`DELETE FROM users WHERE id='${req.body.userid}'`);
     res.status(201).send({ msg: "Deleted User" });
   } catch (err) {

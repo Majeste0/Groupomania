@@ -8,32 +8,22 @@ const postCtrl = require("../controllers/post");
 
 // -- Posts --
 
-//Create
 router.post("/recupImage", multer, postCtrl.newPost);
 
-// Read
 router.get("/allPosts", multer, postCtrl.getAllPost);
-// router.get("/recupImage", multer, postCtrl.getAllPost);
-router.get("/:id", multer, postCtrl.getOnePost);
-// router.get("/recupImage", multer, postCtrl.getUserPosts);
 
-// Update
+router.get("/:id", multer, postCtrl.getOnePost);
+
+router.get("/:ids", multer, postCtrl.getOnePosts);
+
 router.put("/modifyPost", postCtrl.modifyOnePost);
 
-// Delete
-// router.delete("/recupImage", multer, postCtrl.deleteOnePost);
-
-// -- Commentaires --
-
-// Create
 router.post("/newCommentaire", postCtrl.newComment);
 
-// Read
 router.get("/allComments/:id", multer, postCtrl.getAllComments);
 
-// Update
+router.post("/likes/", postCtrl.like);
 
-// Delete
-// router.delete("/recupImage", auth, postCtrl.deleteComment);
+router.get("/adminPosts", postCtrl.adminPosts);
 
 module.exports = router;

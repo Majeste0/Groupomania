@@ -1,11 +1,11 @@
-import "../styles/Postsexample.scss";
+import "../styles/PostAdmin.scss";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-const Postsexample = (props) => {
+const PostAdmin = (props) => {
   let history = useHistory();
 
   const redirect = () => {
@@ -95,4 +95,4 @@ const Postsexample = (props) => {
   );
 };
 
-export default Postsexample;
+export default PostAdmin;
