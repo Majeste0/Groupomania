@@ -12,6 +12,8 @@ router.post("/recupImage", multer, postCtrl.newPost);
 
 router.get("/allPosts", multer, postCtrl.getAllPost);
 
+router.get("/allPostsAdmin", multer, postCtrl.getAllPostAdmin);
+
 router.get("/:id", multer, postCtrl.getOnePost);
 
 router.get("/:ids", multer, postCtrl.getOnePosts);
@@ -24,6 +26,8 @@ router.get("/allComments/:id", multer, postCtrl.getAllComments);
 
 router.post("/likes/", postCtrl.like);
 
-router.get("/adminPosts", postCtrl.adminPosts);
+router.delete("/deletePost", postCtrl.deleteOnePost);
+
+router.post("/isAdmin", postCtrl.getOneUser);
 
 module.exports = router;

@@ -1,98 +1,50 @@
-import "../styles/PostAdmin.scss";
-import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Redirect } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
-
-const PostAdmin = (props) => {
-  let history = useHistory();
-
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import "../styles/PostsAdmin.scss";
+const PostsAdmin = (prop) => {
+  const history = useHistory();
   const redirect = () => {
-    console.log(props.username);
-    console.log(props.id);
-    let username = props.username;
-    console.log(username);
-    history.push("/post/" + props.id);
+    history.push("/admin/post/" + prop.id);
   };
 
-  const like = () => {
-    console.log("hello");
-    let data = {
-      postid: props.id,
-      like: 1,
-      userid: localStorage.getItem("userid"),
-    };
-    console.log(data);
-    console.log(JSON.stringify(data));
-
-    let postOptions = {
-      method: "POST",
-      body: JSON.stringify(data),
+  const deletePost = () => {
+    fetch("http://localhost:3000/api/post/deletePost", {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-    };
-
-    fetch("http://localhost:3000/api/post/likes", postOptions)
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json + "json");
-        console.log(JSON.stringify(json) + "json");
-      });
-  };
-
-  const dislike = () => {
-    let data = {
-      postid: props.id,
-      like: -1,
-      userid: localStorage.getItem("userid"),
-    };
-
-    let postOptions = {
-      method: "POST",
-      body: JSON.stringify(data),
-    };
-
-    fetch("http://localhost:3000/api/post/likes", postOptions)
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json + "json");
-        console.log(JSON.stringify(json) + "json");
-      });
-  };
-
-  const test = () => {
-    console.log("aaaaa");
+      body: JSON.stringify({
+        postid: JSON.parse(prop.id),
+      }),
+    });
     window.location.reload();
   };
+
   return (
     <div className="one_post" onClick={redirect}>
+      <FontAwesomeIcon
+        onClick={deletePost}
+        className="faTimes"
+        icon={faTimes}
+      />
+
       <div className="infos_post">
-        <h4 className="titre_post">{props.title}</h4>
-        <p className="username_post"> De : {props.username}</p>
+        <h4 className="titre_post">{prop.title}</h4>
+        <p className="username_post"> De : {prop.username}</p>
+        <p> KARMA : {prop.karma}</p>
       </div>
       <div className="msgimg_post">
         <img
           className="img_post"
-          src={"http://localhost:3000/images/" + props.image}
+          src={"http://localhost:3000/images/" + prop.image}
         />
-        <p className="message_post">{props.message}</p>
-      </div>
-      <div className="likes_post" onClick={test}>
-        <FontAwesomeIcon
-          className="faThumbsUp"
-          icon={faThumbsUp}
-          onClick={like}
-        />
-        <FontAwesomeIcon
-          className="faThumbsDown"
-          icon={faThumbsDown}
-          onClick={dislike}
-        />
+        <p className="message_post">{prop.message}</p>
       </div>
     </div>
   );
 };
 
-export default PostAdmin;
+export default PostsAdmin;
+
+<FontAwesomeIcon className="faTimes" icon={faTimes} />;

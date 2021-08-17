@@ -9,7 +9,11 @@ exports.newPost = (req, res, err) => {
   console.log(req.body);
   try {
     connect.connection.query(
-      `INSERT INTO posts(userid, username, title, message, image) VALUES ('${req.body.id}', '${req.body.username}', '${req.body.title}', '${req.body.message}', '${req.file.filename}')`
+      `INSERT INTO posts(userid, username, title, message, image, karma) VALUES ('${
+        req.body.id
+      }', '${req.body.username}', '${req.body.title}', '${
+        req.body.message
+      }', '${req.file.filename}', '${0}')`
     );
     res.status(201).send({ msg: "Post crée" });
   } catch (err) {
@@ -49,12 +53,32 @@ exports.getAllPost = (req, res, next) => {
     }
   );
 };
+
+exports.getAllPostAdmin = (req, res, next) => {
+  connect.connection.query(
+    `SELECT * FROM posts ORDER BY karma ASC `,
+
+    function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    }
+  );
+};
+
+exports.getOneUser = (req, res, next) => {
+  connect.connection.query(
+    `SELECT * FROM users WHERE users.id = ${req.body.id}`,
+    function (error, results) {
+      if (error) throw error;
+      res.send(results);
+    }
+  );
+};
+
 exports.deleteOnePost = (req, res, next) => {
   try {
-    connect.connection.query(
-      `DELETE FROM posts WHERE posts.id = ${req.params.id}`
-    );
-    res.status(201).send({ msg: "Post supprimé" });
+    connect.connection.query(`DELETE FROM posts WHERE id='${req.body.postid}'`);
+    res.status(201).send({ msg: "Deleted Post" });
   } catch (err) {
     console.log(err);
   }
@@ -162,7 +186,7 @@ exports.like = (req, res, next) => {
       }
     }
     if (x === 1) {
-      //rien
+      alert("Vous aimez déjà ce post");
     }
     if (x === -1) {
       try {
@@ -234,15 +258,4 @@ exports.like = (req, res, next) => {
     }
   }
   */
-};
-
-exports.adminPosts = (req, res, next) => {
-  connect.connection.query(
-    `SELECT * FROM posts ORDER BY id DESC `,
-
-    function (error, results, fields) {
-      if (error) throw error;
-      res.send(results);
-    }
-  );
 };

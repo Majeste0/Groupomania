@@ -13,3 +13,22 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.logout_btn {
+  border: black 1px solid;
+  cursor: pointer;
+  padding: 3px;
+}
+
+.wrapper_banner {
+  display: flex;
+  width: 25%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.banner_admin {
+  border: black 1px solid;
+  cursor: pointer;
+  padding: 3px;
+}

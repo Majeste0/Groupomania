@@ -31,8 +31,7 @@ const Commentaires = (props) => {
       .then((json) => {
         console.log(JSON.stringify(json) + "json");
       });
-    send = "Message envoyé !";
-    console.log(send);
+
     setToggle(!toggle);
     window.location.reload();
   };

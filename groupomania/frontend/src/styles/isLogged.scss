@@ -1,0 +1,26 @@
+.isLogged_wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.Profile_wrapper,
+.Posts_wrapper {
+  border: solid 1px black;
+  margin: auto;
+  width: 20%;
+  text-align: center;
+  cursor: pointer;
+  padding: 20px;
+  height: 30%;
+  font-family: "Dosis-semibold";
+  font-size: 20px;
+  &:hover {
+    background-color: lightgrey;
+  }
+}
+
+.logo_logged {
+  width: 20%;
+  margin: auto;
+  display: block;
+}

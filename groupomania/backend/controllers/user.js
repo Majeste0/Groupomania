@@ -58,18 +58,11 @@ exports.login = (req, res, next) => {
   connect.connection.query(
     `SELECT * FROM users WHERE username='${clean.username}'`,
     (err, users, rows) => {
-      console.log(users + " users"); // Objet JSON avec la structure de la BDD
-      console.log(clean.password + " clean.password");
-      console.log(users[0].password + " users[0].password");
-      console.log(users[0].username + " users[0].username");
-      console.log(clean.username + " clean.username");
       if (!users) {
         // Si l'on ne retrouve pas son username dans la BDD
         res.status(401).json({ error: "Utilisateur non trouvé !" });
       }
-      console.log(clean.password + " clean.password");
-      console.log(users[0].password + " users[0].password");
-      console.log(users[0].id + " users[0].id");
+
       bcrypt
         .compare(clean.password, users[0].password) // Bcrypt compare le mot de passe tapé avec celui contenu dans la base de données
         .then((valid) => {
@@ -80,6 +73,7 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             // Si le mot de passe est bon cela renvoi une ID + un Token
             userId: users[0].id,
+            isAdmin: users[0].isAdmin,
             token: jwt.sign({ userId: users[0].id }, "RANDOM_TOKEN_SECRET", {
               // Génération d'un token qui sera valide 24H
               expiresIn: "24h",

@@ -12,7 +12,7 @@ const Login = () => {
     localStorage.getItem("username");
     let username = JSON.stringify(data.username);
     username = username.replace(/["']/g, "");
-    
+
     localStorage.getItem("userid");
     localStorage.getItem("jwt");
 
@@ -23,18 +23,22 @@ const Login = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
+
         if (data.token) {
           let userid = JSON.stringify(data.userId);
+          let isAdmin = JSON.stringify(data.isAdmin);
           localStorage.setItem("userid", userid);
           localStorage.setItem("username", username);
           localStorage.setItem("jwt", data.token);
+          localStorage.setItem("isAdmin", isAdmin);
           setRedirect(true);
         }
       });
   };
 
   if (redirect) {
-    return <Redirect to="/home" />;
+    return <Redirect to="/isLogged" />;
   }
 
   return (

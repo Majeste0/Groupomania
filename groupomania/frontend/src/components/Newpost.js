@@ -1,8 +1,10 @@
 import BannerLogged from "./BannerLogged";
 import "../styles/Newpost.scss";
 import TinyyMCE from "./TinyMCE";
+import { useHistory } from "react-router";
 
 const NewPost = (props) => {
+  const history = useHistory();
   console.log(typeof localStorage.getItem("userid"));
 
   const onSubmit = (data) => {
@@ -22,6 +24,7 @@ const NewPost = (props) => {
       .then((json) => {
         console.log(json + "json");
         console.log(JSON.stringify(json) + "json");
+        history.push("/home");
       });
   };
 
