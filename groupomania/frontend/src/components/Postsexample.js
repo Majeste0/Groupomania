@@ -1,30 +1,24 @@
 import "../styles/Postsexample.scss";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Redirect } from "react-router-dom";
+
 import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 const Postsexample = (props) => {
   let history = useHistory();
 
   const redirect = () => {
-    console.log(props.username);
-    console.log(props.id);
     let username = props.username;
-    console.log(username);
+
     history.push("/post/" + props.id);
   };
 
   const like = () => {
-    console.log("hello");
     let data = {
       postid: props.id,
       like: 1,
       userid: localStorage.getItem("userid"),
     };
-    console.log(data);
-    console.log(JSON.stringify(data));
 
     let postOptions = {
       method: "POST",
@@ -52,6 +46,9 @@ const Postsexample = (props) => {
     let postOptions = {
       method: "POST",
       body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
     };
 
     fetch("http://localhost:3000/api/post/likes", postOptions)
@@ -63,7 +60,6 @@ const Postsexample = (props) => {
   };
 
   const test = () => {
-    console.log("aaaaa");
     window.location.reload();
   };
   return (
@@ -74,12 +70,14 @@ const Postsexample = (props) => {
       </div>
       <div className="msgimg_post">
         <img
+          alt="post"
           className="img_post"
           src={"http://localhost:3000/images/" + props.image}
         />
         <p className="message_post">{props.message}</p>
       </div>
       <div className="likes_post" onClick={test}>
+        <div className="karma"> KARMA : {props.karma}</div>
         <FontAwesomeIcon
           className="faThumbsUp"
           icon={faThumbsUp}

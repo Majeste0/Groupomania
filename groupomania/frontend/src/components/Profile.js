@@ -1,12 +1,13 @@
 import "../styles/Profile.scss";
 import BannerLogged from "./BannerLogged";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const Profile = () => {
+  const history = useHistory();
   const [toggle, setToggle] = useState(false);
 
   const onClick = () => {
-    console.log("test");
     setToggle(!toggle);
   };
   const confDel = () => {
@@ -17,9 +18,10 @@ const Profile = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userid: JSON.parse(localStorage.getItem("userid")),
+        userid: JSON.parse(userid),
       }),
     });
+    history.push("/");
   };
   return (
     <div>

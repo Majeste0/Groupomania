@@ -1,7 +1,7 @@
 import Postsexample from "./Postsexample";
 import React, { useState, useEffect } from "react";
 
-const Publications = (props) => {
+const Publications = () => {
   const [Data, setData] = useState(false);
 
   useEffect(() => {
@@ -21,6 +21,7 @@ const Publications = (props) => {
             message={el.message}
             image={el.image}
             username={el.username}
+            karma={el.karma}
           />
         ))}
     </>

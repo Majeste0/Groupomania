@@ -1,0 +1,41 @@
+.logout_wrapper {
+  text-align: center;
+}
+
+.logout_btn1 {
+  margin-right: 10px;
+  text-align: center;
+  background-color: black;
+  border-radius: 28px;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 5px 31px;
+  text-decoration: none;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+}
+.logout_btn2 {
+  margin-left: 10px;
+  text-align: center;
+  background-color: black;
+  border-radius: 28px;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 5px 31px;
+  text-decoration: none;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+}
+
+.logout_title {
+  font-family: Teko;
+  font-size: 50px;
+}

@@ -1,20 +1,17 @@
 import BannerLogged from "./BannerLogged";
 import "../styles/Newpost.scss";
-import TinyyMCE from "./TinyMCE";
+
 import { useHistory } from "react-router";
 
 const NewPost = (props) => {
   const history = useHistory();
-  console.log(typeof localStorage.getItem("userid"));
 
   const onSubmit = (data) => {
     data.preventDefault();
     let form = new FormData(data.target);
     form.append("id", localStorage.getItem("userid"));
     form.append("username", localStorage.getItem("username"));
-    console.log(data.target);
-    console.log(form + "form");
-    console.log(data);
+
     let postOptions = {
       method: "POST",
       body: form,
@@ -22,8 +19,6 @@ const NewPost = (props) => {
     fetch("http://localhost:3000/api/post/recupImage/", postOptions)
       .then((response) => response.json())
       .then((json) => {
-        console.log(json + "json");
-        console.log(JSON.stringify(json) + "json");
         history.push("/home");
       });
   };

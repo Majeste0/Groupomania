@@ -1,20 +1,21 @@
 import BannerLogged from "./BannerLogged";
 import "../styles/SinglePost.scss";
-import Commentaires from "./Commentaires";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import CommentairesAdmin from "./CommentairesAdmin";
 
-const SinglePost = () => {
+const SinglePost = (props) => {
   let { id } = useParams();
 
   // State pour attendre que la requête fetch soit terminée
   const [waiting, setWaiting] = useState(true);
 
   // Requête pour récupérer les différents posts
-  fetch("http://localhost:3000/api/post/" + id, {}).then((response) =>
+  fetch("http://localhost:3000/api/post/admin/" + id, {}).then((response) =>
     response.json().then((json) => {
       localStorage.setItem("postUsername", json[0].username);
       localStorage.setItem("postTitle", json[0].title);
@@ -29,19 +30,12 @@ const SinglePost = () => {
   const { register, handleSubmit } = useForm();
 
   const userid = localStorage.getItem("userid");
-  const postuserid = localStorage.getItem("postUserId");
 
   const onClick = () => {
-    if (userid == postuserid) {
-      setToggle(!toggle);
-    } else {
-      alert("Vous n'êtes pas le créateur de ce post");
-    }
+    setToggle(!toggle);
   };
 
   const onSubmit = (data) => {
-    data.id = id;
-    console.log(data);
     let putOptions = {
       method: "PUT",
       body: JSON.stringify(data),
@@ -49,7 +43,6 @@ const SinglePost = () => {
         "Content-Type": "application/json",
       },
     };
-
     //Requête pour modifier un post
     fetch("http://localhost:3000/api/post/modifyPost", putOptions)
       .then((response) => response.json())
@@ -70,8 +63,8 @@ const SinglePost = () => {
             <div>
               <div className="one_Spost">
                 <img
-                  className="img_Spost"
                   alt="post"
+                  className="img_Spost"
                   src={
                     "http://localhost:3000/images/" +
                     localStorage.getItem("postImage")
@@ -97,7 +90,7 @@ const SinglePost = () => {
                 </p>
               </div>
               <section className="commentaires_Spost">
-                <Commentaires />
+                <CommentairesAdmin />
               </section>
             </div>
           )}
@@ -114,18 +107,16 @@ const SinglePost = () => {
                 </div>
                 <textarea
                   name="title"
-                  placeholder={localStorage.getItem("postTitle")}
+                  value={localStorage.getItem("postTitle")}
                   className="modify_text"
                   {...register("title", { required: true })}
                 ></textarea>
                 <textarea
                   name="message"
-                  placeholder={localStorage.getItem("postMessage")}
-                  // value={localStorage.getItem("postMessage")}
+                  value={localStorage.getItem("postMessage")}
                   className="modify_text"
                   {...register("message", { required: true })}
                 ></textarea>
-                {/* value = le message en bdd */}
                 <button className="addcom_btn"> Envoyer ! </button>
               </form>
             </div>

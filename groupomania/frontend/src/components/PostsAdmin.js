@@ -36,6 +36,7 @@ const PostsAdmin = (prop) => {
       </div>
       <div className="msgimg_post">
         <img
+          alt="post"
           className="img_post"
           src={"http://localhost:3000/images/" + prop.image}
         />

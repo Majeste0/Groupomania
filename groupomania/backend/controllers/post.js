@@ -6,7 +6,6 @@ const { connection } = require("../connection/database");
 const { compareSync } = require("bcrypt");
 
 exports.newPost = (req, res, err) => {
-  console.log(req.body);
   try {
     connect.connection.query(
       `INSERT INTO posts(userid, username, title, message, image, karma) VALUES ('${
@@ -23,7 +22,6 @@ exports.newPost = (req, res, err) => {
 
 exports.getOnePosts = (req, res, next) => {
   if (req.params.id == undefined) {
-    console.log("test");
     connect.connection.query(
       `SELECT * FROM posts WHERE posts.id = ${25}`,
       function (error, results) {
@@ -33,6 +31,7 @@ exports.getOnePosts = (req, res, next) => {
     );
   }
 };
+
 exports.getOnePost = (req, res, next) => {
   connect.connection.query(
     `SELECT * FROM posts WHERE posts.id = ${req.params.id}`,
@@ -87,9 +86,7 @@ exports.deleteOnePost = (req, res, next) => {
 exports.modifyOnePost = (req, res, next) => {
   try {
     connect.connection.query(
-      `UPDATE posts SET title = ${req.body.title}, message = ${
-        req.body.message
-      } WHERE posts.id = ${9}`
+      `UPDATE posts SET title = '${req.body.title}', message = '${req.body.message}' WHERE posts.id = '${req.body.id}'`
     );
     res.status(201).send({ msg: "Post modifié" });
   } catch (err) {
@@ -109,10 +106,6 @@ exports.getUserPosts = (req, res, next) => {
 };
 
 exports.newComment = (req, res, next) => {
-  console.log(req.body + "r.b");
-  console.log(req.body.id + "r.b");
-  console.log(req.body.userid + "r.b");
-  console.log(req.body.message + "r.b");
   try {
     connect.connection.query(
       `INSERT INTO commentaires(userid, postid, message, username) VALUES ('${req.body.userid}', '${req.body.postid}', '${req.body.message}', '${req.body.username}')`
@@ -124,7 +117,6 @@ exports.newComment = (req, res, next) => {
 };
 
 exports.getAllComments = (req, res, next) => {
-  console.log(req.params.id);
   connect.connection.query(
     `SELECT * FROM commentaires WHERE commentaires.postid = ${req.params.id} ORDER BY id DESC`,
     function (error, results, fields) {
@@ -134,128 +126,47 @@ exports.getAllComments = (req, res, next) => {
   );
 };
 
-exports.deleteComment = (req, res, next) => {
+exports.deleteCom = (req, res, next) => {
   try {
     connect.connection.query(
-      `DELETE FROM commentaires WHERE comments.id = ${req.params.id}`
+      `DELETE FROM commentaires WHERE commentaires.id = ${req.body.comid}`
     );
-    res.status(201).send({ msg: "Post récupéré" });
+    res.status(201).send({ msg: "Commentaire supprimé" });
   } catch (err) {
     console.log(err);
   }
 };
 
-exports.like = (req, res, next) => {
-  console.log(req.body);
-  console.log(req.body.like);
-  /*
+exports.karma = (req, res, next) => {
   connect.connection.query(
-    `SELECT * FROM posts WHERE posts.id = ${25}`,
-    function (error, results) {
-      if (error) throw error;
-      res.send(results);
-    }
-  );*/
-  /*
-  connect.connection.query(
-    `SELECT * FROM likes WHERE likes.userid = ${req.body.userid} AND likes.postid = ${req.body.postid}`,
-
-    function (error, results, fields) {
-      if (error) throw error;
-      res.send(results);
-      //console.log(results);
+    `SELECT posts.id from posts,likes WHERE posts.id=likes.postid`,
+    (err, resultat, fields) => {
+      console.log(resultat);
+      let ids = resultat.map((el) => el.id);
+      console.log(ids);
+      for (let cur of ids) {
+        connect.connection.query(
+          `UPDATE posts SET karma = (SELECT SUM(valeur) FROM likes WHERE likes.postid = '${cur}') WHERE posts.id = '${cur}'`
+        );
+      }
     }
   );
-*/
-  let x = connect.connection.query(
-    `SELECT valeur FROM likes WHERE likes.userid = ${req.body.userid} AND likes.postid = ${req.body.postid}`
-  );
-  console.log(x);
-
-  if (req.body.like === 1) {
-    if (x === undefined) {
-      try {
-        connect.connection.query(
-          `INSERT INTO likes(userid, postid, valeur) VALUES ('${
-            req.body.userid
-          }', '${req.body.postid}', '${1}' )`
-        );
-        res.status(201).send({ msg: "Post liké" });
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    if (x === 1) {
-      alert("Vous aimez déjà ce post");
-    }
-    if (x === -1) {
-      try {
-        connect.connection.query(
-          `UPDATE likes SET valeur = ${1} WHERE likes.userid = ${
-            req.body.userid
-          } AND likes.postid = ${req.body.postid}`
-        );
-        res.status(201).send({ msg: "Like modifié" });
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  }
-
-  if (req.body.like === -1) {
-    if (x === undefined) {
-      try {
-        connect.connection.query(
-          `INSERT INTO likes(userid, postid, valeur) VALUES ('${
-            req.body.userid
-          }', '${req.body.postid}', '${-1}' )`
-        );
-        res.status(201).send({ msg: "Post liké" });
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    if (x === 1) {
-      //rien
-    }
-
-    if (x === -1) {
-      try {
-        connect.connection.query(
-          `UPDATE likes SET valeur = ${-1} WHERE likes.userid = ${
-            req.body.userid
-          } AND likes.postid = ${req.body.postid}`
-        );
-        res.status(201).send({ msg: "Like modifié" });
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  }
-
-  /*
-    try {
-      connect.connection.query(
-        `INSERT INTO likes(userid, postid, valeur) VALUES ('${
-          req.body.userid
-        }', '${req.body.postid}', '${1}' )`
-      );
-      res.status(201).send({ msg: "Post liké" });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  if (req.body.like === -1) {
-    try {
-      connect.connection.query(
-        `INSERT INTO likes(userid, postid, valeur) VALUES ('${
-          req.body.userid
-        }', '${req.body.postid}', '${-1}' )`
-      );
-      res.status(201).send({ msg: "Post disliké" });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  */
+  next();
 };
+
+exports.likes = (req, res, next) => {
+  try {
+    connect.connection.query(
+      `INSERT INTO likes(userid, postid, valeur) VALUES 
+      ('${req.body.userid}', '${req.body.postid}', '${req.body.like}')
+      ON DUPLICATE KEY 
+      UPDATE valeur = '${req.body.like}' 
+      `
+    );
+    res.status(201).send({ msg: "Post évalué" });
+  } catch (err) {
+    console.log(err);
+  }
+};
+/*WHERE userid = '${req.body.userid}' 
+      AND postid = '${req.body.postid}'*/

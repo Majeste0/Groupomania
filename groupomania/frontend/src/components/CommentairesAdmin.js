@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import CommentairesList from "./CommentairesList";
-import "../styles/Commentaires.scss";
+import CommentairesListAdmin from "./CommentairesListAdmin";
+import "../styles/CommentairesAdmin.scss";
 import { useParams } from "react-router-dom";
 
-const Commentaires = (props) => {
+const CommentairesAdmin = (props) => {
   let { id } = useParams();
   // add new comments
   const { register, handleSubmit } = useForm();
@@ -70,11 +70,15 @@ const Commentaires = (props) => {
       <div>
         {Data &&
           Data.map((el) => (
-            <CommentairesList username={el.username} message={el.message} />
+            <CommentairesListAdmin
+              username={el.username}
+              message={el.message}
+              id={el.id}
+            />
           ))}
       </div>
     </div>
   );
 };
 
-export default Commentaires;
+export default CommentairesAdmin;

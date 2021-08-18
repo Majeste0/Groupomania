@@ -7,7 +7,6 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config(); // Package nous permettant d'utiliser les variable d'environnement
 
 exports.signup = (req, res) => {
-  console.log(req.body + " req.body");
   var clean = sanitize(req.body); // Création d'une variable qui contient "req.body" en s'assurant qu'il n'y ai plus de script à l'intérieur
 
   let regexpPassword = new RegExp(

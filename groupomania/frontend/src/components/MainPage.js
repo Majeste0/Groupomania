@@ -2,8 +2,6 @@ import BannerLogged from "./BannerLogged";
 import NewArticleBtn from "./NewArticleBtn";
 
 import "../styles/MainPage.scss";
-import Postsexample from "./Postsexample";
-
 import Publications from "./Publications";
 
 const MainPage = () => {

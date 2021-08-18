@@ -61,5 +61,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
-const UserForm = (props) => {};

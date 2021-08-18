@@ -23,8 +23,6 @@ const Login = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         if (data.token) {
           let userid = JSON.stringify(data.userId);
           let isAdmin = JSON.stringify(data.isAdmin);

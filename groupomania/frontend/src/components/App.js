@@ -10,10 +10,10 @@ import SinglePost from "./SinglePost";
 import React, { useState, useEffect } from "react";
 import Logout from "./Logout";
 import IsLogged from "./IsLogged.js";
+import SinglePostAdmin from "./SinglePostAdmin";
 
 const App = () => {
   const [toggle, setToggle] = useState(false);
-  const [isAdmin, setisAdmin] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("jwt")) {
@@ -30,6 +30,7 @@ const App = () => {
             <Route path="/newpost" exact component={Newpost} />
             <Route path="/profile" exact component={Profile} />
             <Route path="/post/:id" exact component={SinglePost} />
+            <Route path="/admin/post/:id" exact component={SinglePostAdmin} />
             <Route path="/admin" exact component={Admin} />
             <Route path="/" exact component={Logout} />
             <Route path="/signup" exact component={Logout} />

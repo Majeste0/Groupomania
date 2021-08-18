@@ -1,7 +1,6 @@
 import { useHistory } from "react-router";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "./Login";
-import Signup from "./Signup";
+
+import "../styles/Logout.scss";
 
 const Logout = () => {
   const history = useHistory();
@@ -14,10 +13,19 @@ const Logout = () => {
     window.location.reload();
   };
   return (
-    <div>
-      <h4> Êtes vous sur de vouloir vous déconnecter ? </h4>
-      <button onClick={redirect}> Retour sur le site</button>
-      <button onClick={logout}> Se deconnecter</button>
+    <div className="logout_wrapper">
+      <h4 className="logout_title">
+        {" "}
+        Êtes vous sur de vouloir vous déconnecter ?{" "}
+      </h4>
+      <button className="logout_btn1" onClick={redirect}>
+        {" "}
+        Retour sur le site
+      </button>
+      <button className="logout_btn2" onClick={logout}>
+        {" "}
+        Se deconnecter
+      </button>
     </div>
   );
 };

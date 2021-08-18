@@ -17,7 +17,7 @@ const IsLogged = () => {
 
   return (
     <div>
-      <img src={logo} className="logo_logged" />
+      <img src={logo} alt="post" className="logo_logged" />
       <div className="isLogged_wrapper">
         <div className="Profile_wrapper" onClick={toProfile}>
           {" "}
